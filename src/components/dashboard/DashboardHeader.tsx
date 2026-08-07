@@ -1,3 +1,5 @@
+import { colors } from '@/lib/tokens/colors'
+
 export function DashboardHeader({
   endpointCount,
   onAddApi,
@@ -11,7 +13,7 @@ export function DashboardHeader({
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 32 }}>
       <div>
         <h1 style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.025em' }}>Dashboard</h1>
-        <p style={{ color: '#475569', fontSize: 13, marginTop: 2 }}>
+        <p style={{ color: colors.textSecondary, fontSize: 13, marginTop: 2 }}>
           {endpointCount === 0 ? 'No endpoints added yet' : `Monitoring ${endpointCount} endpoint${endpointCount !== 1 ? 's' : ''}`}
         </p>
       </div>
@@ -27,9 +29,9 @@ export function DashboardHeader({
           borderRadius: 8,
           fontSize: 13,
           fontWeight: 600,
-          background: disabled ? '#0d1220' : '#22d3ee',
-          border: `1px solid ${disabled ? 'rgba(255,255,255,0.1)' : 'transparent'}`,
-          color: disabled ? '#475569' : '#080c14',
+          background: disabled ? colors.bgDark : colors.accentClarity,
+          border: `1px solid ${disabled ? colors.borderSubtle : 'transparent'}`,
+          color: disabled ? colors.textTertiary : colors.bgDarkest,
           cursor: disabled ? 'not-allowed' : 'pointer',
           transition: 'opacity 0.15s',
           opacity: disabled ? 0.6 : 1,

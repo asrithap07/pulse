@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import { Providers } from './providers'
 import { Sidebar } from '@/components/layout/Sidebar'
+import { colors } from '@/lib/tokens/colors'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
@@ -17,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body>
         <Providers>
-          <div style={{ minHeight: '100vh', background: '#080c14', display: 'flex' }}>
+          <div style={{ minHeight: '100vh', background: colors.bgDarkest, display: 'flex' }}>
             <Sidebar />
             <main style={{ flex: 1, minWidth: 0, overflowY: 'auto' }}>{children}</main>
           </div>

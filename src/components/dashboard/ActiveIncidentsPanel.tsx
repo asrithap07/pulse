@@ -1,6 +1,7 @@
 import type { Incident } from '@/lib/types'
 import { Card } from '@/components/ui/Card'
 import { Label } from '@/components/ui/Label'
+import { colors } from '@/lib/tokens/colors'
 import { ActiveIncidentCard } from '@/components/dashboard/ActiveIncidentCard'
 
 export function ActiveIncidentsPanel({ incidents, onViewIncidents }: { incidents: Incident[]; onViewIncidents: () => void }) {
@@ -12,7 +13,7 @@ export function ActiveIncidentsPanel({ incidents, onViewIncidents }: { incidents
       <div style={{ marginTop: 10 }}>
         {active.length === 0 ? (
           <Card style={{ padding: 18 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#10b981', fontSize: 13, fontWeight: 500 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: colors.statusVital, fontSize: 13, fontWeight: 500 }}>
               <span style={{ fontSize: 15 }}>✓</span> All systems operational
             </div>
           </Card>

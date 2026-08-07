@@ -3,6 +3,7 @@
 import { useState, type CSSProperties, type FormEvent } from 'react'
 import type { Api } from '@/lib/types'
 import { Label } from '@/components/ui/Label'
+import { colors } from '@/lib/tokens/colors'
 
 const INTERVAL_OPTIONS = [1, 2, 3, 5]
 
@@ -25,11 +26,11 @@ export function AddApiModal({ onClose, onAdd }: { onClose: () => void; onAdd: (a
 
   const inputStyle: CSSProperties = {
     width: '100%',
-    background: '#080c14',
-    border: '1px solid rgba(255,255,255,0.09)',
+    background: colors.bgDarkest,
+    border: `1px solid ${colors.borderSubtle}`,
     borderRadius: 8,
     padding: '10px 13px',
-    color: '#e2e8f0',
+    color: colors.textPrimary,
     fontSize: 14,
     fontFamily: 'var(--font-sans)',
     marginBottom: 16,
@@ -42,7 +43,7 @@ export function AddApiModal({ onClose, onAdd }: { onClose: () => void; onAdd: (a
         position: 'fixed',
         inset: 0,
         zIndex: 50,
-        background: 'rgba(0,0,0,0.65)',
+        background: colors.overlay,
         backdropFilter: 'blur(6px)',
         display: 'flex',
         alignItems: 'center',
@@ -52,7 +53,16 @@ export function AddApiModal({ onClose, onAdd }: { onClose: () => void; onAdd: (a
         if (e.target === e.currentTarget) onClose()
       }}
     >
-      <div style={{ background: '#0d1220', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 14, padding: 28, width: 420, maxWidth: '92vw' }}>
+      <div
+        style={{
+          background: colors.bgDark,
+          border: `1px solid ${colors.borderActive}`,
+          borderRadius: 14,
+          padding: 28,
+          width: 420,
+          maxWidth: '92vw',
+        }}
+      >
         <h2 style={{ fontSize: 17, fontWeight: 700, marginBottom: 22 }}>Add Endpoint</h2>
         <form onSubmit={submit}>
           <Label>Name</Label>
@@ -78,9 +88,9 @@ export function AddApiModal({ onClose, onAdd }: { onClose: () => void; onAdd: (a
                   fontSize: 13,
                   fontWeight: 600,
                   fontFamily: 'var(--font-mono)',
-                  background: interval === n ? 'rgba(34,211,238,0.12)' : '#080c14',
-                  border: `1px solid ${interval === n ? '#22d3ee' : 'rgba(255,255,255,0.09)'}`,
-                  color: interval === n ? '#22d3ee' : '#475569',
+                  background: interval === n ? colors.accentClarityMuted : colors.bgDarkest,
+                  border: `1px solid ${interval === n ? colors.accentClarity : colors.borderSubtle}`,
+                  color: interval === n ? colors.accentClarity : colors.textSecondary,
                   cursor: 'pointer',
                 }}
               >
@@ -99,8 +109,8 @@ export function AddApiModal({ onClose, onAdd }: { onClose: () => void; onAdd: (a
                 fontSize: 14,
                 fontWeight: 600,
                 background: 'transparent',
-                border: '1px solid rgba(255,255,255,0.09)',
-                color: '#475569',
+                border: `1px solid ${colors.borderSubtle}`,
+                color: colors.textSecondary,
                 cursor: 'pointer',
               }}
             >
@@ -114,9 +124,9 @@ export function AddApiModal({ onClose, onAdd }: { onClose: () => void; onAdd: (a
                 borderRadius: 8,
                 fontSize: 14,
                 fontWeight: 600,
-                background: '#22d3ee',
+                background: colors.accentClarity,
                 border: 'none',
-                color: '#080c14',
+                color: colors.bgDarkest,
                 cursor: 'pointer',
               }}
             >

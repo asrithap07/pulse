@@ -4,6 +4,7 @@ import Link from 'next/link'
 import type { Api } from '@/lib/types'
 import { StatusPill } from '@/components/ui/StatusPill'
 import { Mono } from '@/components/ui/Mono'
+import { colors } from '@/lib/tokens/colors'
 
 export function EndpointHeader({
   api,
@@ -23,7 +24,7 @@ export function EndpointHeader({
         style={{
           background: 'none',
           border: 'none',
-          color: '#475569',
+          color: colors.textSecondary,
           cursor: 'pointer',
           fontSize: 13,
           display: 'flex',
@@ -47,7 +48,7 @@ export function EndpointHeader({
             <h1 style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.025em' }}>{api.name}</h1>
             <StatusPill status={api.status} />
           </div>
-          <Mono color="#475569">
+          <Mono color={colors.textSecondary}>
             <span style={{ fontSize: 12 }}>{api.url}</span>
           </Mono>
         </div>
@@ -60,9 +61,9 @@ export function EndpointHeader({
               borderRadius: 8,
               fontSize: 13,
               fontWeight: 600,
-              background: 'rgba(34,211,238,0.1)',
-              border: '1px solid rgba(34,211,238,0.25)',
-              color: '#22d3ee',
+              background: colors.accentClaritySubtle,
+              border: `1px solid ${colors.accentClarityBorder}`,
+              color: colors.accentClarity,
               cursor: checking ? 'default' : 'pointer',
             }}
           >
@@ -76,8 +77,8 @@ export function EndpointHeader({
               fontSize: 13,
               fontWeight: 600,
               background: 'transparent',
-              border: '1px solid rgba(255,255,255,0.09)',
-              color: '#475569',
+              border: `1px solid ${colors.borderSubtle}`,
+              color: colors.textSecondary,
               cursor: 'pointer',
             }}
           >

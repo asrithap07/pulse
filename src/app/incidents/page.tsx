@@ -2,6 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { getIncidents } from '@/lib/api'
+import { colors } from '@/lib/tokens/colors'
 import { Label } from '@/components/ui/Label'
 import { IncidentCard } from '@/components/incidents/IncidentCard'
 
@@ -14,7 +15,7 @@ export default function IncidentsPage() {
     <div style={{ padding: '28px 32px', maxWidth: 1100, margin: '0 auto' }}>
       <div style={{ marginBottom: 26 }}>
         <h1 style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.025em' }}>Incidents</h1>
-        <p style={{ color: '#475569', fontSize: 13, marginTop: 2 }}>
+        <p style={{ color: colors.textSecondary, fontSize: 13, marginTop: 2 }}>
           {active.length} active · {resolved.length} resolved
         </p>
       </div>

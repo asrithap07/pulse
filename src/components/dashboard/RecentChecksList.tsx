@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/Card'
 import { Label } from '@/components/ui/Label'
 import { Mono } from '@/components/ui/Mono'
 import { fmtTime } from '@/lib/utils/format'
+import { colors } from '@/lib/tokens/colors'
 
 export function RecentChecksList({ checks }: { checks: Check[] }) {
   const allChecks = [...checks]
@@ -19,7 +20,7 @@ export function RecentChecksList({ checks }: { checks: Check[] }) {
               padding: '16px 16px',
               textAlign: 'center',
               fontSize: 12,
-              color: '#475569',
+              color: colors.textSecondary,
             }}
           >
             No checks yet
@@ -33,7 +34,7 @@ export function RecentChecksList({ checks }: { checks: Check[] }) {
                 alignItems: 'center',
                 gap: 10,
                 padding: '12px 16px',
-                borderBottom: i < allChecks.length - 1 ? '1px solid rgba(255,255,255,0.05)' : undefined,
+                borderBottom: i < allChecks.length - 1 ? `1px solid ${colors.borderFaint}` : undefined,
               }}
               title={`${c.apiName} - ${c.statusCode}`}
             >
@@ -42,7 +43,7 @@ export function RecentChecksList({ checks }: { checks: Check[] }) {
                   width: 6,
                   height: 6,
                   borderRadius: '50%',
-                  background: c.success ? '#10b981' : '#f43f5e',
+                  background: c.success ? colors.statusVital : colors.statusAlert,
                   flexShrink: 0,
                   boxShadow: c.success ? '0 0 8px rgba(16, 185, 129, 0.3)' : '0 0 8px rgba(244, 63, 94, 0.3)',
                 }}
@@ -61,7 +62,7 @@ export function RecentChecksList({ checks }: { checks: Check[] }) {
                 >
                   {c.apiName}
                 </div>
-                <Mono color="#475569">
+                <Mono color={colors.textSecondary}>
                   <span style={{ fontSize: 11 }}>{c.statusCode}</span>
                 </Mono>
               </div>
@@ -70,14 +71,14 @@ export function RecentChecksList({ checks }: { checks: Check[] }) {
                   style={{
                     fontSize: 12,
                     fontFamily: 'var(--font-mono)',
-                    color: c.success ? '#22d3ee' : '#f43f5e',
+                    color: c.success ? colors.accentClarity : colors.statusAlert,
                     fontWeight: 500,
                   }}
                   aria-label={c.success ? `Response time ${c.responseTime}ms` : 'Failed'}
                 >
                   {c.success ? `${c.responseTime}ms` : 'error'}
                 </div>
-                <div style={{ fontSize: 10, color: '#475569' }} title={c.timestamp}>
+                <div style={{ fontSize: 10, color: colors.textSecondary }} title={c.timestamp}>
                   {fmtTime(c.timestamp)}
                 </div>
               </div>

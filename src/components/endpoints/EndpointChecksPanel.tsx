@@ -4,6 +4,7 @@ import { Label } from '@/components/ui/Label'
 import { ResponseChart } from '@/components/charts/ResponseChart'
 import { fmtTime } from '@/lib/utils/format'
 import { statusColor } from '@/lib/utils/status'
+import { colors } from '@/lib/tokens/colors'
 
 export function EndpointChecksPanel({ api, checks }: { api: Api; checks: Check[] }) {
   const recent = checks.slice().reverse().slice(0, 14)
@@ -28,15 +29,34 @@ export function EndpointChecksPanel({ api, checks }: { api: Api; checks: Check[]
                 alignItems: 'center',
                 gap: 9,
                 padding: '8px 0',
-                borderBottom: i < recent.length - 1 ? '1px solid rgba(255,255,255,0.04)' : undefined,
+                borderBottom: i < recent.length - 1 ? `1px solid ${colors.surfaceHover}` : undefined,
               }}
             >
-              <div style={{ width: 6, height: 6, borderRadius: '50%', background: c.success ? '#10b981' : '#f43f5e', flexShrink: 0 }} />
-              <span style={{ flex: 1, fontSize: 12, fontFamily: 'var(--font-mono)', color: '#475569' }}>{fmtTime(c.timestamp)}</span>
-              <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: c.success ? '#22d3ee' : '#f43f5e' }}>
+              <div
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: '50%',
+                  background: c.success ? colors.statusVital : colors.statusAlert,
+                  flexShrink: 0,
+                }}
+                aria-hidden="true"
+              />
+              <span style={{ flex: 1, fontSize: 12, fontFamily: 'var(--font-mono)', color: colors.textSecondary }}>
+                {fmtTime(c.timestamp)}
+              </span>
+              <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: c.success ? colors.accentClarity : colors.statusAlert }}>
                 {c.success ? `${c.responseTime}ms` : c.error || 'error'}
               </span>
-              <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: c.success ? '#334155' : '#f43f5e' }}>{c.statusCode}</span>
+              <span
+                style={{
+                  fontSize: 11,
+                  fontFamily: 'var(--font-mono)',
+                  color: c.success ? colors.textTertiary : colors.statusAlert,
+                }}
+              >
+                {c.statusCode}
+              </span>
             </div>
           ))}
         </div>

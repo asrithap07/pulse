@@ -8,6 +8,7 @@ import { EndpointHeader } from '@/components/endpoints/EndpointHeader'
 import { EndpointStats } from '@/components/endpoints/EndpointStats'
 import { EndpointChecksPanel } from '@/components/endpoints/EndpointChecksPanel'
 import { EndpointIncidentHistory } from '@/components/endpoints/EndpointIncidentHistory'
+import { colors } from '@/lib/tokens/colors'
 
 export default function EndpointDetailPage() {
   const { id } = useParams<{ id: string }>()
@@ -48,7 +49,7 @@ export default function EndpointDetailPage() {
   if (!api) {
     return (
       <div style={{ padding: '28px 32px', maxWidth: 1100, margin: '0 auto' }}>
-        <p style={{ color: '#475569', fontSize: 14 }}>No endpoint found with id &ldquo;{id}&rdquo;.</p>
+        <p style={{ color: colors.textSecondary, fontSize: 14 }}>No endpoint found with id &ldquo;{id}&rdquo;.</p>
       </div>
     )
   }

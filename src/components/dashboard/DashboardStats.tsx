@@ -1,5 +1,6 @@
 import type { Api, Incident } from '@/lib/types'
 import { StatCard } from '@/components/ui/StatCard'
+import { colors } from '@/lib/tokens/colors'
 
 export function DashboardStats({ apis, incidents }: { apis: Api[]; incidents: Incident[] }) {
   const active = incidents.filter(i => i.status === 'active')
@@ -19,14 +20,14 @@ export function DashboardStats({ apis, incidents }: { apis: Api[]; incidents: In
         label="Avg Uptime"
         value={`${avgUptime}%`}
         sub="Last 30 days"
-        valueColor={parseFloat(avgUptime) > 99 ? '#10b981' : parseFloat(avgUptime) > 95 ? '#f59e0b' : '#f43f5e'}
+        valueColor={parseFloat(avgUptime) > 99 ? colors.statusVital : colors.statusWarning}
       />
       <StatCard label="Avg Latency" value={`${avgLatency}ms`} sub="All endpoints" valueColor={latencyColor} />
       <StatCard
         label="Active Incidents"
         value={String(active.length)}
         sub={active.length > 0 ? 'Needs attention' : 'All clear'}
-        valueColor={active.length > 0 ? '#f43f5e' : '#10b981'}
+        valueColor={active.length > 0 ? colors.statusAlert : colors.statusVital}
       />
       <StatCard
         label="Endpoints"

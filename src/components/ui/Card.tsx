@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, type CSSProperties, type ReactNode } from 'react'
+import { colors } from '@/lib/tokens/colors'
 
 export function Card({
   children,
@@ -31,9 +32,9 @@ export function Card({
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{
-        background: '#0d1220',
+        background: colors.bgDark,
         border: `1px solid ${
-          glow === 'red' ? 'rgba(244,63,94,0.2)' : hov && onClick ? 'rgba(255,255,255,0.13)' : 'rgba(255,255,255,0.07)'
+          glow === 'red' ? colors.statusAlertBorder : hov && onClick ? colors.borderActive : colors.borderSubtle
         }`,
         borderRadius: 10,
         transition: 'border-color 0.15s',

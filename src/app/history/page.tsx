@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getChecks } from '@/lib/api'
 import { HistoryFilters, type HistoryFilter } from '@/components/history/HistoryFilters'
 import { HistoryTable } from '@/components/history/HistoryTable'
+import { colors } from '@/lib/tokens/colors'
 
 export default function HistoryPage() {
   const [filter, setFilter] = useState<HistoryFilter>('all')
@@ -24,7 +25,7 @@ export default function HistoryPage() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.025em' }}>Check History</h1>
-          <p style={{ color: '#475569', fontSize: 13, marginTop: 2 }}>{allChecks.length} checks</p>
+          <p style={{ color: colors.textSecondary, fontSize: 13, marginTop: 2 }}>{allChecks.length} checks</p>
         </div>
         <HistoryFilters search={search} onSearchChange={setSearch} filter={filter} onFilterChange={setFilter} />
       </div>

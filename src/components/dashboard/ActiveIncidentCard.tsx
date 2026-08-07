@@ -2,12 +2,13 @@ import type { Incident } from '@/lib/types'
 import { Card } from '@/components/ui/Card'
 import { StatusDot } from '@/components/ui/StatusDot'
 import { fmtTime, duration } from '@/lib/utils/format'
+import { colors } from '@/lib/tokens/colors'
 
 export function ActiveIncidentCard({ incident, onViewIncidents }: { incident: Incident; onViewIncidents: () => void }) {
   const stats = [
     { label: 'Duration', value: duration(incident.startTime), color: undefined },
     { label: 'Failed Checks', value: String(incident.failedChecks), color: undefined },
-    { label: 'Status', value: 'Ongoing', color: '#f43f5e' },
+    { label: 'Status', value: 'Ongoing', color: colors.statusAlert },
   ]
 
   return (
@@ -28,53 +29,23 @@ export function ActiveIncidentCard({ incident, onViewIncidents }: { incident: In
             {incident.apiName}
           </span>
         </div>
-        <span
-          style={{
-            fontSize: 12,
-            color: '#475569',
-            fontFamily: 'var(--font-mono)',
-            flexShrink: 0,
-          }}
-          title={`Started ${fmtTime(incident.startTime)}`}
-        >
+        <span style={{ fontSize: 12, color: colors.textSecondary, fontFamily: 'var(--font-mono)' }}>
           Started {fmtTime(incident.startTime)}
         </span>
       </div>
-      <p
-        style={{
-          fontSize: 13,
-          color: '#94a3b8',
-          lineHeight: 1.55,
-          marginBottom: 16,
-          overflow: 'hidden',
-          display: '-webkit-box',
-          WebkitLineClamp: 2,
-          WebkitBoxOrient: 'vertical',
-          wordWrap: 'break-word',
-        }}
-        title={incident.description}
-      >
-        {incident.description}
-      </p>
+      <p style={{ fontSize: 13, color: colors.textSecondary, lineHeight: 1.55, marginBottom: 16 }}>{incident.description}</p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 16 }}>
         {stats.map(({ label, value, color }) => (
           <div key={label}>
-            <div style={{ fontSize: 11, color: '#475569', fontWeight: 500, marginBottom: 3 }}>
-              {label}
-            </div>
+            <div style={{ fontSize: 11, color: colors.textSecondary, fontWeight: 500, marginBottom: 3 }}>{label}</div>
             <div
               style={{
                 fontSize: 20,
                 fontWeight: 700,
                 fontFamily: 'var(--font-mono)',
-                color: color || '#e2e8f0',
+                color: color || colors.textPrimary,
                 letterSpacing: '-0.02em',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
               }}
-              title={value}
-              aria-label={`${label}: ${value}`}
             >
               {value}
             </div>
@@ -90,9 +61,9 @@ export function ActiveIncidentCard({ incident, onViewIncidents }: { incident: In
           borderRadius: 8,
           fontSize: 13,
           fontWeight: 600,
-          background: 'rgba(244,63,94,0.12)',
-          border: '1px solid rgba(244,63,94,0.2)',
-          color: '#f43f5e',
+          background: colors.statusAlertBgStrong,
+          border: `1px solid ${colors.statusAlertBorder}`,
+          color: colors.statusAlert,
           cursor: 'pointer',
           transition: 'opacity 0.15s',
         }}

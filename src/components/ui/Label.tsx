@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { colors } from '@/lib/tokens/colors'
 
 export function Label({ children }: { children: ReactNode }) {
   return (
@@ -6,7 +7,7 @@ export function Label({ children }: { children: ReactNode }) {
       style={{
         fontSize: 11,
         fontWeight: 600,
-        color: '#475569',
+        color: colors.textSecondary,
         textTransform: 'uppercase',
         letterSpacing: '0.07em',
         marginBottom: 6,

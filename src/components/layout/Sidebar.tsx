@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { getApis, getIncidents } from '@/lib/api'
 import { StatusDot } from '@/components/ui/StatusDot'
+import { colors } from '@/lib/tokens/colors'
 
 const NAV_ITEMS = [
   { href: '/dashboard', label: 'Dashboard' },
@@ -23,8 +24,8 @@ export function Sidebar() {
       style={{
         width: 210,
         flexShrink: 0,
-        background: '#080c14',
-        borderRight: '1px solid rgba(255,255,255,0.06)',
+        background: colors.bgDarkest,
+        borderRight: `1px solid ${colors.borderFaint}`,
         display: 'flex',
         flexDirection: 'column',
         position: 'sticky',
@@ -39,7 +40,7 @@ export function Sidebar() {
               width: 26,
               height: 26,
               borderRadius: 7,
-              background: 'linear-gradient(135deg, #22d3ee 0%, #6366f1 100%)',
+              background: `linear-gradient(135deg, ${colors.accentClarity} 0%, ${colors.accentInsight} 100%)`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -69,8 +70,8 @@ export function Sidebar() {
                 borderRadius: 7,
                 fontSize: 13.5,
                 fontWeight: isActive ? 600 : 400,
-                background: isActive ? 'rgba(34,211,238,0.08)' : 'transparent',
-                color: isActive ? '#22d3ee' : '#475569',
+                background: isActive ? colors.accentClaritySubtle : 'transparent',
+                color: isActive ? colors.accentClarity : colors.textSecondary,
                 textDecoration: 'none',
               }}
             >
@@ -78,7 +79,7 @@ export function Sidebar() {
               {item.href === '/incidents' && activeIncCount > 0 && (
                 <span
                   style={{
-                    background: '#f43f5e',
+                    background: colors.statusAlert,
                     color: 'white',
                     fontSize: 10,
                     fontWeight: 700,
@@ -94,14 +95,14 @@ export function Sidebar() {
           )
         })}
 
-        <div style={{ height: 1, background: 'rgba(255,255,255,0.05)', margin: '12px 2px' }} />
+        <div style={{ height: 1, background: colors.borderFaint, margin: '12px 2px' }} />
 
         <div
           style={{
             padding: '2px 11px 6px',
             fontSize: 10.5,
             fontWeight: 600,
-            color: '#2d3a4d',
+            color: colors.textTertiary,
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
           }}
@@ -119,8 +120,8 @@ export function Sidebar() {
               padding: '7px 11px',
               borderRadius: 7,
               fontSize: 13,
-              background: pathname === `/endpoints/${api.id}` ? 'rgba(255,255,255,0.04)' : 'transparent',
-              color: '#475569',
+              background: pathname === `/endpoints/${api.id}` ? colors.surfaceHover : 'transparent',
+              color: colors.textSecondary,
               textDecoration: 'none',
             }}
           >
@@ -130,7 +131,15 @@ export function Sidebar() {
         ))}
       </nav>
 
-      <div style={{ padding: '14px 20px', borderTop: '1px solid rgba(255,255,255,0.05)', fontSize: 11, color: '#1e2d3d', fontFamily: 'var(--font-mono)' }}>
+      <div
+        style={{
+          padding: '14px 20px',
+          borderTop: `1px solid ${colors.borderFaint}`,
+          fontSize: 11,
+          color: colors.textTertiary,
+          fontFamily: 'var(--font-mono)',
+        }}
+      >
         v0.1.0
       </div>
     </aside>

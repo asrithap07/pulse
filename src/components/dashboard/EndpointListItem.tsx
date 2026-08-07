@@ -1,7 +1,9 @@
+import type { KeyboardEvent } from 'react'
 import type { Api, Check } from '@/lib/types'
 import { Card } from '@/components/ui/Card'
 import { StatusPill } from '@/components/ui/StatusPill'
 import { Sparkline } from '@/components/charts/Sparkline'
+import { colors } from '@/lib/tokens/colors'
 
 export function EndpointListItem({ api, checks, onSelect }: { api: Api; checks: Check[]; onSelect: (id: string) => void }) {
   return (
@@ -9,7 +11,7 @@ export function EndpointListItem({ api, checks, onSelect }: { api: Api; checks: 
       onClick={() => onSelect(api.id)}
       role="button"
       tabIndex={0}
-      onKeyDown={(e: React.KeyboardEvent) => {
+      onKeyDown={(e: KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()
           onSelect(api.id)
@@ -42,9 +44,9 @@ export function EndpointListItem({ api, checks, onSelect }: { api: Api; checks: 
               <span
                 style={{
                   fontSize: 11,
-                  color: '#475569',
+                  color: colors.textSecondary,
                   fontFamily: 'var(--font-mono)',
-                  background: 'rgba(255,255,255,0.04)',
+                  background: colors.surfaceHover,
                   padding: '1px 7px',
                   borderRadius: 6,
                   flexShrink: 0,
@@ -59,7 +61,7 @@ export function EndpointListItem({ api, checks, onSelect }: { api: Api; checks: 
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: 12,
-              color: '#475569',
+              color: colors.textSecondary,
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap',
@@ -77,15 +79,15 @@ export function EndpointListItem({ api, checks, onSelect }: { api: Api; checks: 
                 fontFamily: 'var(--font-mono)',
                 fontSize: 17,
                 fontWeight: 700,
-                color: api.avgLatency === 0 ? '#94a3b8' : api.avgLatency < 200 ? '#10b981' : api.avgLatency < 500 ? '#f59e0b' : '#f43f5e',
+                color: api.avgLatency === 0 ? colors.textSecondary : api.avgLatency < 200 ? colors.statusVital : api.avgLatency < 500 ? colors.statusWarning : colors.statusAlert,
                 letterSpacing: '-0.02em',
               }}
               aria-label={`Latency ${api.avgLatency > 0 ? api.avgLatency : 'unknown'} milliseconds`}
             >
               {api.avgLatency > 0 ? api.avgLatency : '—'}
-              <span style={{ fontSize: 11, color: '#475569', fontWeight: 400 }}>ms</span>
+              <span style={{ fontSize: 11, color: colors.textSecondary, fontWeight: 400 }}>ms</span>
             </div>
-            <div style={{ fontSize: 11, color: '#475569' }}>latency</div>
+            <div style={{ fontSize: 11, color: colors.textSecondary }}>latency</div>
           </div>
           <div style={{ textAlign: 'right' }}>
             <div
@@ -93,16 +95,16 @@ export function EndpointListItem({ api, checks, onSelect }: { api: Api; checks: 
                 fontFamily: 'var(--font-mono)',
                 fontSize: 17,
                 fontWeight: 700,
-                color: api.uptime > 99.5 ? '#10b981' : api.uptime > 99 ? '#10b981' : api.uptime > 95 ? '#f59e0b' : '#f43f5e',
+                color: api.uptime > 99.5 ? colors.statusVital : api.uptime > 99 ? colors.statusVital : api.uptime > 95 ? colors.statusWarning : colors.statusAlert,
                 letterSpacing: '-0.02em',
               }}
               aria-label={`Uptime ${api.uptime} percent`}
             >
               {api.uptime}%
             </div>
-            <div style={{ fontSize: 11, color: '#475569' }}>uptime</div>
+            <div style={{ fontSize: 11, color: colors.textSecondary }}>uptime</div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', color: '#334155' }}>
+          <div style={{ display: 'flex', alignItems: 'center', color: colors.textTertiary }}>
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
               <path d="M5.5 3.5l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
