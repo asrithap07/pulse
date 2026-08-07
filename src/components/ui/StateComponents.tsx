@@ -54,7 +54,13 @@ interface EmptyStateProps {
 
 export function EmptyState({ title, message, actionLabel, onAction, icon = '📭' }: EmptyStateProps) {
   return (
-    <Card style={{ padding: 40, textAlign: 'center' }}>
+    <Card
+      style={{
+        padding: 40,
+        textAlign: 'center',
+        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(34, 211, 238, 0.05) 100%)',
+      }}
+    >
       <div style={{ fontSize: 32, marginBottom: 12 }}>{icon}</div>
       <h3 style={{ fontSize: 14, fontWeight: 600, color: '#e2e8f0', marginBottom: 8 }}>{title}</h3>
       <p style={{ fontSize: 13, color: '#94a3b8', marginBottom: 16, maxWidth: 300, margin: '0 auto 16px' }}>

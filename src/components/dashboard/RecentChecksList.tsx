@@ -44,6 +44,7 @@ export function RecentChecksList({ checks }: { checks: Check[] }) {
                   borderRadius: '50%',
                   background: c.success ? '#10b981' : '#f43f5e',
                   flexShrink: 0,
+                  boxShadow: c.success ? '0 0 8px rgba(16, 185, 129, 0.3)' : '0 0 8px rgba(244, 63, 94, 0.3)',
                 }}
                 aria-label={c.success ? 'Success' : 'Failed'}
               />

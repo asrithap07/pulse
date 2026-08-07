@@ -77,7 +77,7 @@ export function EndpointListItem({ api, checks, onSelect }: { api: Api; checks: 
                 fontFamily: 'var(--font-mono)',
                 fontSize: 17,
                 fontWeight: 700,
-                color: api.avgLatency > 500 ? '#f59e0b' : '#e2e8f0',
+                color: api.avgLatency === 0 ? '#94a3b8' : api.avgLatency < 200 ? '#10b981' : api.avgLatency < 500 ? '#f59e0b' : '#f43f5e',
                 letterSpacing: '-0.02em',
               }}
               aria-label={`Latency ${api.avgLatency > 0 ? api.avgLatency : 'unknown'} milliseconds`}
@@ -93,7 +93,7 @@ export function EndpointListItem({ api, checks, onSelect }: { api: Api; checks: 
                 fontFamily: 'var(--font-mono)',
                 fontSize: 17,
                 fontWeight: 700,
-                color: api.uptime > 99 ? '#10b981' : '#f59e0b',
+                color: api.uptime > 99.5 ? '#10b981' : api.uptime > 99 ? '#10b981' : api.uptime > 95 ? '#f59e0b' : '#f43f5e',
                 letterSpacing: '-0.02em',
               }}
               aria-label={`Uptime ${api.uptime} percent`}

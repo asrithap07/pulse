@@ -9,22 +9,31 @@ export function DashboardStats({ apis, incidents }: { apis: Api[]; incidents: In
     ? Math.round(apisWithLatency.reduce((s, a) => s + a.avgLatency, 0) / apisWithLatency.length)
     : 0
 
+  // Compute latency color: green <200ms, amber 200-500ms, red >500ms
+  const latencyColor =
+    avgLatency === 0 ? '#475569' : avgLatency < 200 ? '#10b981' : avgLatency < 500 ? '#f59e0b' : '#f43f5e'
+
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginBottom: 28 }}>
       <StatCard
         label="Avg Uptime"
         value={`${avgUptime}%`}
         sub="Last 30 days"
-        valueColor={parseFloat(avgUptime) > 99 ? '#10b981' : '#f59e0b'}
+        valueColor={parseFloat(avgUptime) > 99 ? '#10b981' : parseFloat(avgUptime) > 95 ? '#f59e0b' : '#f43f5e'}
       />
-      <StatCard label="Avg Latency" value={`${avgLatency}ms`} sub="All endpoints" />
+      <StatCard label="Avg Latency" value={`${avgLatency}ms`} sub="All endpoints" valueColor={latencyColor} />
       <StatCard
         label="Active Incidents"
         value={String(active.length)}
         sub={active.length > 0 ? 'Needs attention' : 'All clear'}
         valueColor={active.length > 0 ? '#f43f5e' : '#10b981'}
       />
-      <StatCard label="Endpoints" value={`${apis.filter(a => a.enabled).length}/${apis.length}`} sub="Active / Total" />
+      <StatCard
+        label="Endpoints"
+        value={`${apis.filter(a => a.enabled).length}/${apis.length}`}
+        sub="Active / Total"
+        valueColor={apis.length > 0 ? '#22d3ee' : '#475569'}
+      />
     </div>
   )
 }
