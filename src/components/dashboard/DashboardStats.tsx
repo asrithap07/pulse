@@ -14,7 +14,7 @@ export function DashboardStats({ apis, incidents }: { apis: Api[]; incidents: In
     avgLatency === 0 ? '#475569' : avgLatency < 200 ? '#10b981' : avgLatency < 500 ? '#f59e0b' : '#f43f5e'
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginBottom: 28 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 32 }}>
       <StatCard
         label="Avg Uptime"
         value={`${avgUptime}%`}

@@ -11,7 +11,7 @@ export function ActiveIncidentCard({ incident, onViewIncidents }: { incident: In
   ]
 
   return (
-    <Card glow="red" style={{ padding: 20, background: 'rgba(13, 18, 32, 0.5)' }}>
+    <Card glow="red" style={{ padding: 24, background: 'rgba(13, 18, 32, 0.5)' }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 12, gap: 12 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
           <StatusDot status="down" size={8} />

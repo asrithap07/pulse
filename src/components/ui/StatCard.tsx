@@ -13,7 +13,7 @@ export function StatCard({
   valueColor?: string
 }) {
   return (
-    <Card style={{ padding: '18px 20px' }}>
+    <Card style={{ padding: '20px 24px' }}>
       <Label>{label}</Label>
       <div
         style={{

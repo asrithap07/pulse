@@ -8,7 +8,7 @@ export function DashboardHeader({
   disabled?: boolean
 }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 32 }}>
       <div>
         <h1 style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.025em' }}>Dashboard</h1>
         <p style={{ color: '#475569', fontSize: 13, marginTop: 2 }}>
@@ -22,8 +22,8 @@ export function DashboardHeader({
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 7,
-          padding: '9px 18px',
+          gap: 8,
+          padding: '10px 20px',
           borderRadius: 8,
           fontSize: 13,
           fontWeight: 600,

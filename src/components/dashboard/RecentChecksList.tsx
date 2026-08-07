@@ -12,11 +12,11 @@ export function RecentChecksList({ checks }: { checks: Check[] }) {
   return (
     <div>
       <Label>Recent Checks</Label>
-      <Card style={{ marginTop: 10 }}>
+      <Card style={{ marginTop: 12 }}>
         {allChecks.length === 0 ? (
           <div
             style={{
-              padding: '16px 14px',
+              padding: '16px 16px',
               textAlign: 'center',
               fontSize: 12,
               color: '#475569',
@@ -32,7 +32,7 @@ export function RecentChecksList({ checks }: { checks: Check[] }) {
                 display: 'flex',
                 alignItems: 'center',
                 gap: 10,
-                padding: '9px 14px',
+                padding: '12px 16px',
                 borderBottom: i < allChecks.length - 1 ? '1px solid rgba(255,255,255,0.05)' : undefined,
               }}
               title={`${c.apiName} - ${c.statusCode}`}

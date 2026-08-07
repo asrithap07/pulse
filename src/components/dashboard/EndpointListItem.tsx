@@ -17,7 +17,7 @@ export function EndpointListItem({ api, checks, onSelect }: { api: Api; checks: 
       }}
       aria-label={`${api.name} endpoint, status ${api.status}, ${api.uptime}% uptime`}
       style={{
-        padding: '16px 20px',
+        padding: '18px 24px',
         cursor: 'pointer',
         transition: 'border-color 0.15s',
       }}
