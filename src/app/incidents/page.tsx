@@ -1,11 +1,12 @@
 'use client'
 
-import { useMonitoring } from '@/lib/store/monitoring-context'
+import { useQuery } from '@tanstack/react-query'
+import { getIncidents } from '@/lib/api'
 import { Label } from '@/components/ui/Label'
 import { IncidentCard } from '@/components/incidents/IncidentCard'
 
 export default function IncidentsPage() {
-  const { incidents } = useMonitoring()
+  const { data: incidents = [] } = useQuery({ queryKey: ['incidents'], queryFn: getIncidents })
   const active = incidents.filter(i => i.status === 'active')
   const resolved = incidents.filter(i => i.status === 'resolved')
 

@@ -11,6 +11,13 @@ export interface Check {
   error?: string
 }
 
+export interface CheckPage {
+  checks: Check[]
+  total: number
+  limit: number
+  offset: number
+}
+
 export interface Api {
   id: string
   name: string
@@ -20,7 +27,6 @@ export interface Api {
   status: Status
   uptime: number
   avgLatency: number
-  checks: Check[]
   lastChecked: string
 }
 

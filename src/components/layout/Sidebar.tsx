@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useMonitoring } from '@/lib/store/monitoring-context'
+import { useQuery } from '@tanstack/react-query'
+import { getApis, getIncidents } from '@/lib/api'
 import { StatusDot } from '@/components/ui/StatusDot'
 
 const NAV_ITEMS = [
@@ -13,7 +14,8 @@ const NAV_ITEMS = [
 
 export function Sidebar() {
   const pathname = usePathname()
-  const { apis, incidents } = useMonitoring()
+  const { data: apis = [] } = useQuery({ queryKey: ['apis'], queryFn: getApis })
+  const { data: incidents = [] } = useQuery({ queryKey: ['incidents'], queryFn: getIncidents })
   const activeIncCount = incidents.filter(i => i.status === 'active').length
 
   return (

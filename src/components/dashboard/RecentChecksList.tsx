@@ -1,12 +1,11 @@
-import type { Api } from '@/lib/types'
+import type { Check } from '@/lib/types'
 import { Card } from '@/components/ui/Card'
 import { Label } from '@/components/ui/Label'
 import { Mono } from '@/components/ui/Mono'
 import { fmtTime } from '@/lib/utils/format'
 
-export function RecentChecksList({ apis }: { apis: Api[] }) {
-  const allChecks = apis
-    .flatMap(a => a.checks)
+export function RecentChecksList({ checks }: { checks: Check[] }) {
+  const allChecks = [...checks]
     .sort((a, b) => b.timestamp.localeCompare(a.timestamp))
     .slice(0, 8)
 

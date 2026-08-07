@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { useParams } from 'next/navigation'
-import { useMonitoring } from '@/lib/store/monitoring-context'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { getApi, getIncidents, getChecks, triggerCheck, toggleApi } from '@/lib/api'
 import { EndpointHeader } from '@/components/endpoints/EndpointHeader'
 import { EndpointStats } from '@/components/endpoints/EndpointStats'
 import { EndpointChecksPanel } from '@/components/endpoints/EndpointChecksPanel'
@@ -10,10 +11,39 @@ import { EndpointIncidentHistory } from '@/components/endpoints/EndpointIncident
 
 export default function EndpointDetailPage() {
   const { id } = useParams<{ id: string }>()
-  const { apis, incidents, toggleApi, checkApi } = useMonitoring()
+  const queryClient = useQueryClient()
   const [checking, setChecking] = useState(false)
 
-  const api = apis.find(a => a.id === id)
+  const { data: api } = useQuery({
+    queryKey: ['apis', id],
+    queryFn: () => getApi(id),
+  })
+
+  const { data: incidents = [] } = useQuery({
+    queryKey: ['incidents', id],
+    queryFn: () => getIncidents().then(all => all.filter(i => i.apiId === id)),
+  })
+
+  const { data: checksPage } = useQuery({
+    queryKey: ['checks', id],
+    queryFn: () => getChecks(id, 50, 0),
+  })
+
+  const checkMutation = useMutation({
+    mutationFn: triggerCheck,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['checks', id] })
+      queryClient.invalidateQueries({ queryKey: ['apis'] })
+    },
+  })
+
+  const toggleMutation = useMutation({
+    mutationFn: toggleApi,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['apis', id] })
+      queryClient.invalidateQueries({ queryKey: ['apis'] })
+    },
+  })
 
   if (!api) {
     return (
@@ -23,20 +53,25 @@ export default function EndpointDetailPage() {
     )
   }
 
-  const apiIncidents = incidents.filter(i => i.apiId === api.id)
+  const currentApi = api
 
   function handleCheck() {
     setChecking(true)
-    checkApi(api!.id)
+    checkMutation.mutate(currentApi.id)
     setTimeout(() => setChecking(false), 1200)
   }
 
   return (
     <div style={{ padding: '28px 32px', maxWidth: 1100, margin: '0 auto' }}>
-      <EndpointHeader api={api} checking={checking} onCheck={handleCheck} onToggle={() => toggleApi(api.id)} />
-      <EndpointStats api={api} />
-      <EndpointChecksPanel api={api} />
-      <EndpointIncidentHistory incidents={apiIncidents} />
+      <EndpointHeader
+        api={currentApi}
+        checking={checking}
+        onCheck={handleCheck}
+        onToggle={() => toggleMutation.mutate(currentApi.id)}
+      />
+      <EndpointStats api={currentApi} />
+      <EndpointChecksPanel api={currentApi} checks={checksPage?.checks ?? []} />
+      <EndpointIncidentHistory incidents={incidents} />
     </div>
   )
 }

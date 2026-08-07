@@ -1,9 +1,9 @@
-import type { Api } from '@/lib/types'
+import type { Api, Check } from '@/lib/types'
 import { Card } from '@/components/ui/Card'
 import { StatusPill } from '@/components/ui/StatusPill'
 import { Sparkline } from '@/components/charts/Sparkline'
 
-export function EndpointListItem({ api, onSelect }: { api: Api; onSelect: (id: string) => void }) {
+export function EndpointListItem({ api, checks, onSelect }: { api: Api; checks: Check[]; onSelect: (id: string) => void }) {
   return (
     <Card onClick={() => onSelect(api.id)} style={{ padding: '16px 20px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -66,7 +66,7 @@ export function EndpointListItem({ api, onSelect }: { api: Api; onSelect: (id: s
         </div>
       </div>
       <div style={{ marginTop: 10, height: 32 }}>
-        <Sparkline checks={api.checks} status={api.status} />
+        <Sparkline checks={checks} status={api.status} />
       </div>
     </Card>
   )

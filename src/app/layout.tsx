@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
-import { MonitoringProvider } from '@/lib/store/monitoring-context'
+import { Providers } from './providers'
 import { Sidebar } from '@/components/layout/Sidebar'
 import './globals.css'
 
@@ -16,12 +16,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body>
-        <MonitoringProvider>
+        <Providers>
           <div style={{ minHeight: '100vh', background: '#080c14', display: 'flex' }}>
             <Sidebar />
             <main style={{ flex: 1, minWidth: 0, overflowY: 'auto' }}>{children}</main>
           </div>
-        </MonitoringProvider>
+        </Providers>
       </body>
     </html>
   )

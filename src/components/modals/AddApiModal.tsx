@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/Label'
 
 const INTERVAL_OPTIONS = [1, 2, 3, 5]
 
-export function AddApiModal({ onClose, onAdd }: { onClose: () => void; onAdd: (api: Api) => void }) {
+export function AddApiModal({ onClose, onAdd }: { onClose: () => void; onAdd: (api: Omit<Api, 'id' | 'status' | 'uptime' | 'avgLatency' | 'lastChecked'>) => void }) {
   const [name, setName] = useState('')
   const [url, setUrl] = useState('')
   const [interval, setIntervalVal] = useState(2)
@@ -15,16 +15,10 @@ export function AddApiModal({ onClose, onAdd }: { onClose: () => void; onAdd: (a
     e.preventDefault()
     if (!name.trim() || !url.trim()) return
     onAdd({
-      id: `api${Date.now()}`,
       name: name.trim(),
       url: url.trim(),
       interval,
       enabled: true,
-      status: 'healthy',
-      uptime: 100,
-      avgLatency: 0,
-      lastChecked: 'Just added',
-      checks: [],
     })
     onClose()
   }

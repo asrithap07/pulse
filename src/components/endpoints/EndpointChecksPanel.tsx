@@ -1,19 +1,19 @@
-import type { Api } from '@/lib/types'
+import type { Api, Check } from '@/lib/types'
 import { Card } from '@/components/ui/Card'
 import { Label } from '@/components/ui/Label'
 import { ResponseChart } from '@/components/charts/ResponseChart'
 import { fmtTime } from '@/lib/utils/format'
 import { statusColor } from '@/lib/utils/status'
 
-export function EndpointChecksPanel({ api }: { api: Api }) {
-  const recent = api.checks.slice().reverse().slice(0, 14)
+export function EndpointChecksPanel({ api, checks }: { api: Api; checks: Check[] }) {
+  const recent = checks.slice().reverse().slice(0, 14)
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: 20, marginBottom: 22 }}>
       <Card style={{ padding: '18px 20px' }}>
         <Label>Response Time</Label>
         <div style={{ marginTop: 10 }}>
-          <ResponseChart checks={api.checks} color={statusColor(api.status)} />
+          <ResponseChart checks={checks} color={statusColor(api.status)} />
         </div>
       </Card>
 

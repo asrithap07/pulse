@@ -1,18 +1,21 @@
 'use client'
 
 import { useState } from 'react'
-import { useMonitoring } from '@/lib/store/monitoring-context'
+import { useQuery } from '@tanstack/react-query'
+import { getChecks } from '@/lib/api'
 import { HistoryFilters, type HistoryFilter } from '@/components/history/HistoryFilters'
 import { HistoryTable } from '@/components/history/HistoryTable'
 
 export default function HistoryPage() {
-  const { apis } = useMonitoring()
   const [filter, setFilter] = useState<HistoryFilter>('all')
   const [search, setSearch] = useState('')
 
-  const allChecks = apis
-    .flatMap(a => a.checks)
-    .sort((a, b) => b.timestamp.localeCompare(a.timestamp))
+  const { data: checksPage } = useQuery({
+    queryKey: ['checks'],
+    queryFn: () => getChecks(undefined, 200, 0),
+  })
+
+  const allChecks = (checksPage?.checks ?? [])
     .filter(c => filter === 'all' || !c.success)
     .filter(c => !search || c.apiName.toLowerCase().includes(search.toLowerCase()))
 
