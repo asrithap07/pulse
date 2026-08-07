@@ -7,16 +7,27 @@ export function Card({
   style,
   onClick,
   glow,
+  role,
+  tabIndex,
+  onKeyDown,
+  ...ariaProps
 }: {
   children: ReactNode
   style?: CSSProperties
   onClick?: () => void
   glow?: 'red' | 'none'
+  role?: string
+  tabIndex?: number
+  onKeyDown?: (e: React.KeyboardEvent) => void
+  [key: string]: any
 }) {
   const [hov, setHov] = useState(false)
   return (
     <div
+      role={role}
+      tabIndex={tabIndex}
       onClick={onClick}
+      onKeyDown={onKeyDown}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{
@@ -29,6 +40,7 @@ export function Card({
         cursor: onClick ? 'pointer' : undefined,
         ...style,
       }}
+      {...ariaProps}
     >
       {children}
     </div>

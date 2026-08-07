@@ -1,24 +1,44 @@
-export function DashboardHeader({ endpointCount, onAddApi }: { endpointCount: number; onAddApi: () => void }) {
+export function DashboardHeader({
+  endpointCount,
+  onAddApi,
+  disabled = false,
+}: {
+  endpointCount: number
+  onAddApi: () => void
+  disabled?: boolean
+}) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
       <div>
         <h1 style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.025em' }}>Dashboard</h1>
-        <p style={{ color: '#475569', fontSize: 13, marginTop: 2 }}>Monitoring {endpointCount} endpoints</p>
+        <p style={{ color: '#475569', fontSize: 13, marginTop: 2 }}>
+          {endpointCount === 0 ? 'No endpoints added yet' : `Monitoring ${endpointCount} endpoint${endpointCount !== 1 ? 's' : ''}`}
+        </p>
       </div>
       <button
         onClick={onAddApi}
+        disabled={disabled}
+        aria-label="Add a new API endpoint"
         style={{
           display: 'flex',
           alignItems: 'center',
           gap: 7,
           padding: '9px 18px',
-          borderRadius: 9,
+          borderRadius: 8,
           fontSize: 13,
           fontWeight: 600,
-          background: '#22d3ee',
-          border: 'none',
-          color: '#080c14',
-          cursor: 'pointer',
+          background: disabled ? '#0d1220' : '#22d3ee',
+          border: `1px solid ${disabled ? 'rgba(255,255,255,0.1)' : 'transparent'}`,
+          color: disabled ? '#475569' : '#080c14',
+          cursor: disabled ? 'not-allowed' : 'pointer',
+          transition: 'opacity 0.15s',
+          opacity: disabled ? 0.6 : 1,
+        }}
+        onMouseEnter={e => {
+          if (!disabled) (e.target as HTMLButtonElement).style.opacity = '0.9'
+        }}
+        onMouseLeave={e => {
+          if (!disabled) (e.target as HTMLButtonElement).style.opacity = '1'
         }}
       >
         <span style={{ fontSize: 16, lineHeight: 1 }}>+</span> Add Endpoint

@@ -12,19 +12,70 @@ export function ActiveIncidentCard({ incident, onViewIncidents }: { incident: In
 
   return (
     <Card glow="red" style={{ padding: 20 }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 12, gap: 12 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
           <StatusDot status="down" size={8} />
-          <span style={{ fontWeight: 600, fontSize: 14 }}>{incident.apiName}</span>
+          <span
+            style={{
+              fontWeight: 600,
+              fontSize: 14,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+            title={incident.apiName}
+          >
+            {incident.apiName}
+          </span>
         </div>
-        <span style={{ fontSize: 12, color: '#475569', fontFamily: 'var(--font-mono)' }}>Started {fmtTime(incident.startTime)}</span>
+        <span
+          style={{
+            fontSize: 12,
+            color: '#475569',
+            fontFamily: 'var(--font-mono)',
+            flexShrink: 0,
+          }}
+          title={`Started ${fmtTime(incident.startTime)}`}
+        >
+          Started {fmtTime(incident.startTime)}
+        </span>
       </div>
-      <p style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.55, marginBottom: 16 }}>{incident.description}</p>
+      <p
+        style={{
+          fontSize: 13,
+          color: '#94a3b8',
+          lineHeight: 1.55,
+          marginBottom: 16,
+          overflow: 'hidden',
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+          wordWrap: 'break-word',
+        }}
+        title={incident.description}
+      >
+        {incident.description}
+      </p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 16 }}>
         {stats.map(({ label, value, color }) => (
           <div key={label}>
-            <div style={{ fontSize: 11, color: '#475569', fontWeight: 500, marginBottom: 3 }}>{label}</div>
-            <div style={{ fontSize: 20, fontWeight: 700, fontFamily: 'var(--font-mono)', color: color || '#e2e8f0', letterSpacing: '-0.02em' }}>
+            <div style={{ fontSize: 11, color: '#475569', fontWeight: 500, marginBottom: 3 }}>
+              {label}
+            </div>
+            <div
+              style={{
+                fontSize: 20,
+                fontWeight: 700,
+                fontFamily: 'var(--font-mono)',
+                color: color || '#e2e8f0',
+                letterSpacing: '-0.02em',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+              title={value}
+              aria-label={`${label}: ${value}`}
+            >
               {value}
             </div>
           </div>
@@ -32,6 +83,7 @@ export function ActiveIncidentCard({ incident, onViewIncidents }: { incident: In
       </div>
       <button
         onClick={onViewIncidents}
+        aria-label="View incident details"
         style={{
           width: '100%',
           padding: '9px 0',
@@ -42,7 +94,10 @@ export function ActiveIncidentCard({ incident, onViewIncidents }: { incident: In
           border: '1px solid rgba(244,63,94,0.2)',
           color: '#f43f5e',
           cursor: 'pointer',
+          transition: 'opacity 0.15s',
         }}
+        onMouseEnter={e => ((e.target as HTMLButtonElement).style.opacity = '0.8')}
+        onMouseLeave={e => ((e.target as HTMLButtonElement).style.opacity = '1')}
       >
         View Incident
       </button>

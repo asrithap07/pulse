@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-color",
+        "value": "#334155",
+        "files": [
+          "src/components/dashboard/EndpointListItem.tsx"
+        ],
+        "createdAt": "2026-08-07T21:02:35.301Z",
+        "reason": "Arrow indicator color, pre-existing design"
+      }
+    ]
+  }
+}
