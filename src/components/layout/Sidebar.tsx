@@ -69,9 +69,9 @@ export function Sidebar() {
                 padding: '8px 11px',
                 borderRadius: 7,
                 fontSize: 13.5,
-                fontWeight: isActive ? 600 : 400,
+                fontWeight: isActive ? 600 : 500,
                 background: isActive ? colors.accentClaritySubtle : 'transparent',
-                color: isActive ? colors.accentClarity : colors.textSecondary,
+                color: isActive ? colors.accentClarity : colors.textPrimary,
                 textDecoration: 'none',
               }}
             >
@@ -102,7 +102,7 @@ export function Sidebar() {
             padding: '2px 11px 6px',
             fontSize: 10.5,
             fontWeight: 600,
-            color: colors.textTertiary,
+            color: colors.textSecondary,
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
           }}
@@ -121,7 +121,7 @@ export function Sidebar() {
               borderRadius: 7,
               fontSize: 13,
               background: pathname === `/endpoints/${api.id}` ? colors.surfaceHover : 'transparent',
-              color: colors.textSecondary,
+              color: colors.textPrimary,
               textDecoration: 'none',
             }}
           >
@@ -136,7 +136,7 @@ export function Sidebar() {
           padding: '14px 20px',
           borderTop: `1px solid ${colors.borderFaint}`,
           fontSize: 11,
-          color: colors.textTertiary,
+          color: colors.textSecondary,
           fontFamily: 'var(--font-mono)',
         }}
       >

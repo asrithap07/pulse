@@ -1,11 +1,18 @@
-import { getApis, addApi } from '@/lib/db'
+const FASTAPI_URL = process.env.FASTAPI_URL
 
 export async function GET() {
-  return Response.json(getApis())
+  const res = await fetch(`${FASTAPI_URL}/api/apis`)
+  const data = await res.json()
+  return Response.json(data, { status: res.status })
 }
 
 export async function POST(request: Request) {
   const body = await request.json()
-  const api = addApi(body)
-  return Response.json(api, { status: 201 })
+  const res = await fetch(`${FASTAPI_URL}/api/apis`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  })
+  const data = await res.json()
+  return Response.json(data, { status: res.status })
 }
