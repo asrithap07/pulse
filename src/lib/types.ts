@@ -22,6 +22,9 @@ export interface Api {
   id: string
   name: string
   url: string
+  /** Check frequency in SECONDS — matches the backend's Service.interval
+   * column. UI components that show/collect this in minutes must go
+   * through src/lib/utils/interval.ts to convert. */
   interval: number
   enabled: boolean
   status: Status

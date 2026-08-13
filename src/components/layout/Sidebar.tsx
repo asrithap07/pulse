@@ -22,9 +22,9 @@ export function Sidebar() {
   return (
     <aside
       style={{
-        width: 210,
+        width: 220,
         flexShrink: 0,
-        background: colors.bgDarkest,
+        background: 'linear-gradient(180deg, rgba(9, 13, 21, 0.98), rgba(12, 18, 28, 0.98))',
         borderRight: `1px solid ${colors.borderFaint}`,
         display: 'flex',
         flexDirection: 'column',
@@ -33,29 +33,35 @@ export function Sidebar() {
         height: '100vh',
       }}
     >
-      <div style={{ padding: '22px 20px 18px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+      <div style={{ padding: '22px 18px 16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div
             style={{
-              width: 26,
-              height: 26,
-              borderRadius: 7,
-              background: `linear-gradient(135deg, ${colors.accentClarity} 0%, ${colors.accentInsight} 100%)`,
+              width: 28,
+              height: 28,
+              borderRadius: 8,
+              background: 'linear-gradient(135deg, #dff8ff 0%, #7ae7ff 35%, #b79aff 100%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              boxShadow: '0 10px 24px rgba(122, 231, 255, 0.18)',
             }}
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <circle cx="6" cy="6" r="2" fill="white" />
-              <path d="M6 1v1.5M6 9.5V11M1 6h1.5M9.5 6H11" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+              <circle cx="6" cy="6" r="2" fill="#071319" />
+              <path d="M6 1v1.5M6 9.5V11M1 6h1.5M9.5 6H11" stroke="#071319" strokeWidth="1.4" strokeLinecap="round" />
             </svg>
           </div>
-          <span style={{ fontSize: 16, fontWeight: 700, letterSpacing: '-0.02em' }}>Pulse</span>
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', color: colors.textSecondary, textTransform: 'uppercase' }}>
+              Pulse
+            </div>
+            <div style={{ fontSize: 16, fontWeight: 700, letterSpacing: '-0.04em' }}>Command</div>
+          </div>
         </div>
       </div>
 
-      <nav style={{ flex: 1, padding: '0 10px', display: 'flex', flexDirection: 'column', gap: 1 }}>
+      <nav style={{ flex: 1, padding: '0 10px', display: 'flex', flexDirection: 'column', gap: 4 }}>
         {NAV_ITEMS.map(item => {
           const isActive = pathname === item.href || (pathname?.startsWith('/endpoints') && item.href === '/dashboard')
           return (
@@ -66,13 +72,14 @@ export function Sidebar() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '8px 11px',
-                borderRadius: 7,
+                padding: '9px 12px',
+                borderRadius: 10,
                 fontSize: 13.5,
-                fontWeight: isActive ? 600 : 500,
+                fontWeight: isActive ? 700 : 600,
                 background: isActive ? colors.accentClaritySubtle : 'transparent',
                 color: isActive ? colors.accentClarity : colors.textPrimary,
                 textDecoration: 'none',
+                border: isActive ? `1px solid ${colors.accentClarityBorder}` : '1px solid transparent',
               }}
             >
               {item.label}
@@ -80,12 +87,14 @@ export function Sidebar() {
                 <span
                   style={{
                     background: colors.statusAlert,
-                    color: 'white',
+                    color: '#fff',
                     fontSize: 10,
                     fontWeight: 700,
-                    borderRadius: 9,
-                    padding: '1px 5px',
+                    borderRadius: 999,
+                    padding: '2px 6px',
                     fontFamily: 'var(--font-mono)',
+                    minWidth: 18,
+                    textAlign: 'center',
                   }}
                 >
                   {activeIncCount}
@@ -99,12 +108,12 @@ export function Sidebar() {
 
         <div
           style={{
-            padding: '2px 11px 6px',
+            padding: '2px 12px 8px',
             fontSize: 10.5,
-            fontWeight: 600,
+            fontWeight: 700,
             color: colors.textSecondary,
             textTransform: 'uppercase',
-            letterSpacing: '0.08em',
+            letterSpacing: '0.12em',
           }}
         >
           Endpoints
@@ -117,12 +126,13 @@ export function Sidebar() {
               display: 'flex',
               alignItems: 'center',
               gap: 8,
-              padding: '7px 11px',
-              borderRadius: 7,
+              padding: '8px 12px',
+              borderRadius: 10,
               fontSize: 13,
               background: pathname === `/endpoints/${api.id}` ? colors.surfaceHover : 'transparent',
               color: colors.textPrimary,
               textDecoration: 'none',
+              border: pathname === `/endpoints/${api.id}` ? `1px solid ${colors.borderSubtle}` : '1px solid transparent',
             }}
           >
             <StatusDot status={api.status} size={6} />
@@ -138,6 +148,7 @@ export function Sidebar() {
           fontSize: 11,
           color: colors.textSecondary,
           fontFamily: 'var(--font-mono)',
+          letterSpacing: '0.08em',
         }}
       >
         v0.1.0

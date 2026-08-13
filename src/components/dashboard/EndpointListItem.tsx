@@ -19,21 +19,20 @@ export function EndpointListItem({ api, checks, onSelect }: { api: Api; checks: 
       }}
       aria-label={`${api.name} endpoint, status ${api.status}, ${api.uptime}% uptime`}
       style={{
-        padding: '18px 24px',
-        cursor: 'pointer',
-        transition: 'border-color 0.15s',
+        padding: '18px 18px 16px',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 3, minWidth: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 5, minWidth: 0 }}>
             <span
               style={{
                 fontWeight: 600,
-                fontSize: 14,
+                fontSize: 15,
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
+                letterSpacing: '-0.02em',
               }}
               title={api.name}
             >
@@ -43,12 +42,12 @@ export function EndpointListItem({ api, checks, onSelect }: { api: Api; checks: 
             {!api.enabled && (
               <span
                 style={{
-                  fontSize: 11,
+                  fontSize: 10.5,
                   color: colors.textSecondary,
                   fontFamily: 'var(--font-mono)',
                   background: colors.surfaceHover,
-                  padding: '1px 7px',
-                  borderRadius: 6,
+                  padding: '2px 7px',
+                  borderRadius: 999,
                   flexShrink: 0,
                 }}
                 title="This endpoint is currently paused"
@@ -72,38 +71,55 @@ export function EndpointListItem({ api, checks, onSelect }: { api: Api; checks: 
             {api.url}
           </span>
         </div>
-        <div style={{ display: 'flex', gap: 24, flexShrink: 0 }}>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 18, flexShrink: 0 }}>
           <div style={{ textAlign: 'right' }}>
             <div
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: 17,
+                fontSize: 16,
                 fontWeight: 700,
-                color: api.avgLatency === 0 ? colors.textSecondary : api.avgLatency < 200 ? colors.statusVital : api.avgLatency < 500 ? colors.statusWarning : colors.statusAlert,
-                letterSpacing: '-0.02em',
+                color:
+                  api.avgLatency === 0
+                    ? colors.textSecondary
+                    : api.avgLatency < 200
+                      ? colors.statusVital
+                      : api.avgLatency < 500
+                        ? colors.statusWarning
+                        : colors.statusAlert,
+                letterSpacing: '-0.04em',
               }}
               aria-label={`Latency ${api.avgLatency > 0 ? api.avgLatency : 'unknown'} milliseconds`}
             >
               {api.avgLatency > 0 ? api.avgLatency : '—'}
-              <span style={{ fontSize: 11, color: colors.textSecondary, fontWeight: 400 }}>ms</span>
+              <span style={{ fontSize: 10, color: colors.textSecondary, fontWeight: 400 }}>ms</span>
             </div>
-            <div style={{ fontSize: 11, color: colors.textSecondary }}>latency</div>
+            <div style={{ fontSize: 10.5, color: colors.textSecondary, marginTop: 2 }}>latency</div>
           </div>
+
           <div style={{ textAlign: 'right' }}>
             <div
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: 17,
+                fontSize: 16,
                 fontWeight: 700,
-                color: api.uptime > 99.5 ? colors.statusVital : api.uptime > 99 ? colors.statusVital : api.uptime > 95 ? colors.statusWarning : colors.statusAlert,
-                letterSpacing: '-0.02em',
+                color:
+                  api.uptime > 99.5
+                    ? colors.statusVital
+                    : api.uptime > 99
+                      ? colors.statusVital
+                      : api.uptime > 95
+                        ? colors.statusWarning
+                        : colors.statusAlert,
+                letterSpacing: '-0.04em',
               }}
               aria-label={`Uptime ${api.uptime} percent`}
             >
               {api.uptime}%
             </div>
-            <div style={{ fontSize: 11, color: colors.textSecondary }}>uptime</div>
+            <div style={{ fontSize: 10.5, color: colors.textSecondary, marginTop: 2 }}>uptime</div>
           </div>
+
           <div style={{ display: 'flex', alignItems: 'center', color: colors.textTertiary }}>
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
               <path d="M5.5 3.5l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -111,7 +127,8 @@ export function EndpointListItem({ api, checks, onSelect }: { api: Api; checks: 
           </div>
         </div>
       </div>
-      <div style={{ marginTop: 10, height: 32 }}>
+
+      <div style={{ marginTop: 12, height: 34 }}>
         <Sparkline checks={checks} status={api.status} />
       </div>
     </Card>

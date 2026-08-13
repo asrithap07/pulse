@@ -5,12 +5,12 @@ export function Label({ children }: { children: ReactNode }) {
   return (
     <div
       style={{
-        fontSize: 11,
-        fontWeight: 600,
+        fontSize: 10.5,
+        fontWeight: 700,
         color: colors.textSecondary,
         textTransform: 'uppercase',
-        letterSpacing: '0.07em',
-        marginBottom: 6,
+        letterSpacing: '0.14em',
+        marginBottom: 8,
       }}
     >
       {children}

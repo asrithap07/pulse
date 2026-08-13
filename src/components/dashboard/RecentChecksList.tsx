@@ -13,7 +13,7 @@ export function RecentChecksList({ checks }: { checks: Check[] }) {
   return (
     <div>
       <Label>Recent Checks</Label>
-      <Card style={{ marginTop: 12 }}>
+      <Card style={{ marginTop: 12, overflow: 'hidden' }}>
         {allChecks.length === 0 ? (
           <div
             style={{
@@ -40,12 +40,12 @@ export function RecentChecksList({ checks }: { checks: Check[] }) {
             >
               <div
                 style={{
-                  width: 6,
-                  height: 6,
+                  width: 7,
+                  height: 7,
                   borderRadius: '50%',
                   background: c.success ? colors.statusVital : colors.statusAlert,
                   flexShrink: 0,
-                  boxShadow: c.success ? '0 0 8px rgba(16, 185, 129, 0.3)' : '0 0 8px rgba(244, 63, 94, 0.3)',
+                  boxShadow: c.success ? '0 0 10px rgba(61, 220, 151, 0.4)' : '0 0 10px rgba(255, 107, 116, 0.4)',
                 }}
                 aria-label={c.success ? 'Success' : 'Failed'}
               />
@@ -53,10 +53,11 @@ export function RecentChecksList({ checks }: { checks: Check[] }) {
                 <div
                   style={{
                     fontSize: 12,
-                    fontWeight: 500,
+                    fontWeight: 600,
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
+                    letterSpacing: '-0.01em',
                   }}
                   title={c.apiName}
                 >
@@ -72,13 +73,13 @@ export function RecentChecksList({ checks }: { checks: Check[] }) {
                     fontSize: 12,
                     fontFamily: 'var(--font-mono)',
                     color: c.success ? colors.accentClarity : colors.statusAlert,
-                    fontWeight: 500,
+                    fontWeight: 600,
                   }}
                   aria-label={c.success ? `Response time ${c.responseTime}ms` : 'Failed'}
                 >
                   {c.success ? `${c.responseTime}ms` : 'error'}
                 </div>
-                <div style={{ fontSize: 10, color: colors.textSecondary }} title={c.timestamp}>
+                <div style={{ fontSize: 10, color: colors.textSecondary, marginTop: 2 }} title={c.timestamp}>
                   {fmtTime(c.timestamp)}
                 </div>
               </div>

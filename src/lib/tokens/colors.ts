@@ -2,6 +2,8 @@
 export const colors = {
   bgDarkest: 'var(--color-bg-darkest)',
   bgDark: 'var(--color-bg-dark)',
+  bgPanel: 'var(--color-bg-panel)',
+  bgElevated: 'var(--color-bg-elevated)',
   textPrimary: 'var(--color-text-primary)',
   textSecondary: 'var(--color-text-secondary)',
   textTertiary: 'var(--color-text-tertiary)',

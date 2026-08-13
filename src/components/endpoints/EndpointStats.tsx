@@ -1,6 +1,8 @@
 import type { Api } from '@/lib/types'
 import { StatCard } from '@/components/ui/StatCard'
 import { colors } from '@/lib/tokens/colors'
+import { timeAgo } from '@/lib/utils/format'
+import { formatIntervalMinutes } from '@/lib/utils/interval'
 
 export function EndpointStats({ api }: { api: Api }) {
   return (
@@ -15,8 +17,8 @@ export function EndpointStats({ api }: { api: Api }) {
         value={`${api.avgLatency}ms`}
         valueColor={api.avgLatency < 200 ? colors.statusVital : api.avgLatency < 1000 ? colors.statusWarning : colors.statusAlert}
       />
-      <StatCard label="Interval" value={`${api.interval}m`} sub="minutes" />
-      <StatCard label="Last Checked" value={api.lastChecked} />
+      <StatCard label="Interval" value={formatIntervalMinutes(api.interval)} sub="minutes" />
+      <StatCard label="Last Checked" value={timeAgo(api.lastChecked)} />
     </div>
   )
 }

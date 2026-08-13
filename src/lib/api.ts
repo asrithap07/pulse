@@ -28,6 +28,10 @@ export function toggleApi(id: string): Promise<Api> {
   return request<Api>(`/api/apis/${id}`, { method: 'PATCH' })
 }
 
+export function deleteApi(id: string): Promise<Api> {
+  return request<Api>(`/api/apis/${id}`, { method: 'DELETE' })
+}
+
 export function getChecks(apiId?: string, limit = 50, offset = 0): Promise<CheckPage> {
   const params = new URLSearchParams({ limit: String(limit), offset: String(offset) })
   if (apiId) params.set('apiId', apiId)

@@ -13,8 +13,21 @@ export function ActiveIncidentsPanel({ incidents, onViewIncidents }: { incidents
       <div style={{ marginTop: 10 }}>
         {active.length === 0 ? (
           <Card style={{ padding: 18 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: colors.statusVital, fontSize: 13, fontWeight: 500 }}>
-              <span style={{ fontSize: 15 }}>✓</span> All systems operational
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span
+                style={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: '50%',
+                  background: colors.statusVital,
+                  boxShadow: `0 0 0 6px ${colors.statusVitalBg}`,
+                  display: 'inline-block',
+                }}
+              />
+              <div>
+                <div style={{ color: colors.statusVital, fontSize: 13, fontWeight: 700 }}>All systems operational</div>
+                <div style={{ color: colors.textSecondary, fontSize: 12, marginTop: 2 }}>No active alerts across your surface.</div>
+              </div>
             </div>
           </Card>
         ) : (

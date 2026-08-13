@@ -4,13 +4,16 @@ import { useState, type CSSProperties, type FormEvent } from 'react'
 import type { Api } from '@/lib/types'
 import { Label } from '@/components/ui/Label'
 import { colors } from '@/lib/tokens/colors'
+import { minutesToSeconds } from '@/lib/utils/interval'
 
-const INTERVAL_OPTIONS = [1, 2, 3, 5]
+// Options are minutes, purely for display/selection. `api.interval` on the
+// wire is always seconds — see src/lib/utils/interval.ts.
+const INTERVAL_OPTIONS_MINUTES = [1, 2, 3, 5]
 
 export function AddApiModal({ onClose, onAdd }: { onClose: () => void; onAdd: (api: Omit<Api, 'id' | 'status' | 'uptime' | 'avgLatency' | 'lastChecked'>) => void }) {
   const [name, setName] = useState('')
   const [url, setUrl] = useState('')
-  const [interval, setIntervalVal] = useState(2)
+  const [intervalMinutes, setIntervalMinutes] = useState(2)
 
   function submit(e: FormEvent) {
     e.preventDefault()
@@ -18,7 +21,7 @@ export function AddApiModal({ onClose, onAdd }: { onClose: () => void; onAdd: (a
     onAdd({
       name: name.trim(),
       url: url.trim(),
-      interval,
+      interval: minutesToSeconds(intervalMinutes),
       enabled: true,
     })
     onClose()
@@ -76,11 +79,11 @@ export function AddApiModal({ onClose, onAdd }: { onClose: () => void; onAdd: (a
           />
           <Label>Check interval</Label>
           <div style={{ display: 'flex', gap: 8, marginBottom: 26 }}>
-            {INTERVAL_OPTIONS.map(n => (
+            {INTERVAL_OPTIONS_MINUTES.map(n => (
               <button
                 key={n}
                 type="button"
-                onClick={() => setIntervalVal(n)}
+                onClick={() => setIntervalMinutes(n)}
                 style={{
                   flex: 1,
                   padding: '8px 0',
@@ -88,9 +91,9 @@ export function AddApiModal({ onClose, onAdd }: { onClose: () => void; onAdd: (a
                   fontSize: 13,
                   fontWeight: 600,
                   fontFamily: 'var(--font-mono)',
-                  background: interval === n ? colors.accentClarityMuted : colors.bgDarkest,
-                  border: `1px solid ${interval === n ? colors.accentClarity : colors.borderSubtle}`,
-                  color: interval === n ? colors.accentClarity : colors.textSecondary,
+                  background: intervalMinutes === n ? colors.accentClarityMuted : colors.bgDarkest,
+                  border: `1px solid ${intervalMinutes === n ? colors.accentClarity : colors.borderSubtle}`,
+                  color: intervalMinutes === n ? colors.accentClarity : colors.textSecondary,
                   cursor: 'pointer',
                 }}
               >

@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { getApi, getIncidents, getChecks, triggerCheck, toggleApi } from '@/lib/api'
+import { getApi, getIncidents, getChecks, triggerCheck, toggleApi, deleteApi } from '@/lib/api'
 import { EndpointHeader } from '@/components/endpoints/EndpointHeader'
 import { EndpointStats } from '@/components/endpoints/EndpointStats'
 import { EndpointChecksPanel } from '@/components/endpoints/EndpointChecksPanel'
@@ -12,6 +12,7 @@ import { colors } from '@/lib/tokens/colors'
 
 export default function EndpointDetailPage() {
   const { id } = useParams<{ id: string }>()
+  const router = useRouter()
   const queryClient = useQueryClient()
   const [checking, setChecking] = useState(false)
 
@@ -46,6 +47,14 @@ export default function EndpointDetailPage() {
     },
   })
 
+  const deleteMutation = useMutation({
+    mutationFn: deleteApi,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['apis'] })
+      router.push('/dashboard')
+    },
+  })
+
   if (!api) {
     return (
       <div style={{ padding: '28px 32px', maxWidth: 1100, margin: '0 auto' }}>
@@ -69,6 +78,7 @@ export default function EndpointDetailPage() {
         checking={checking}
         onCheck={handleCheck}
         onToggle={() => toggleMutation.mutate(currentApi.id)}
+        onDelete={() => deleteMutation.mutate(currentApi.id)}
       />
       <EndpointStats api={currentApi} />
       <EndpointChecksPanel api={currentApi} checks={checksPage?.checks ?? []} />
