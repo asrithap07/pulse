@@ -56,7 +56,7 @@ export function Sidebar() {
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', color: colors.textSecondary, textTransform: 'uppercase' }}>
               Pulse
             </div>
-            <div style={{ fontSize: 16, fontWeight: 700, letterSpacing: '-0.04em' }}>Command</div>
+            {/* <div style={{ fontSize: 16, fontWeight: 700, letterSpacing: '-0.04em' }}>Command</div> */}
           </div>
         </div>
       </div>

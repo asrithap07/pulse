@@ -45,7 +45,7 @@ export function DashboardHeader({
           Live operations
         </div>
         <h1 style={{ fontSize: 'clamp(2.2rem, 3vw, 3.2rem)', lineHeight: 1, letterSpacing: '-0.06em', fontWeight: 700 }}>
-          Pulse command
+          Pulse
         </h1>
         <p style={{ color: colors.textSecondary, fontSize: 14, maxWidth: 540 }}>
           {endpointCount === 0
