@@ -45,3 +45,11 @@ export function triggerCheck(apiId: string): Promise<Check> {
 export function getIncidents(): Promise<Incident[]> {
   return request<Incident[]>('/api/incidents')
 }
+
+export async function triggerAnalysis(id: string): Promise<Incident> {
+  const res = await fetch(`/api/incidents/${id}/analyze`, { method: "POST" });
+  if (!res.ok) {
+    throw new Error(`Failed to analyze incident: ${res.status}`);
+  }
+  return res.json();
+}

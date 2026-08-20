@@ -6,7 +6,7 @@ import { fmtTime } from '@/lib/utils/format'
 import { colors } from '@/lib/tokens/colors'
 
 export function ResponseChart({ checks, color = colors.accentClarity }: { checks: Check[]; color?: string }) {
-  const data = checks.slice(-20).map(c => ({
+  const data = checks.slice(-20).reverse().map(c => ({
     t: fmtTime(c.timestamp),
     ms: c.success ? c.responseTime : undefined,
   }))

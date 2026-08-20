@@ -6,9 +6,22 @@ import { Card } from '@/components/ui/Card'
 import { fmtDateTime, duration } from '@/lib/utils/format'
 import { IncidentAiAnalysis } from '@/components/incidents/IncidentAiAnalysis'
 
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { triggerAnalysis } from "@/lib/api";
+
 export function IncidentCard({ incident, defaultOpen = false }: { incident: Incident; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen)
   const active = incident.status === 'active'
+  // inside the component
+const queryClient = useQueryClient();
+
+const analyzeMutation = useMutation({
+    mutationFn: () => triggerAnalysis(incident.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["incidents"] });
+    },
+  });
+
 
   return (
     <Card glow={active ? 'red' : 'none'}>
@@ -81,7 +94,36 @@ export function IncidentCard({ incident, defaultOpen = false }: { incident: Inci
           <StatCard label="Status" value={active ? 'Ongoing' : 'Resolved'} color={active ? '#f43f5e' : '#10b981'} />
         </div>
 
-        {incident.ai && <IncidentAiAnalysis ai={incident.ai} />}
+        {incident.ai ? (
+          <IncidentAiAnalysis ai={incident.ai} />
+        ) : (
+          <div style={{ padding: '4px 20px 20px' }}>
+            <button
+              onClick={(e) => {
+                e.stopPropagation() // don't let the click also toggle the card open/closed
+                analyzeMutation.mutate()
+              }}
+              disabled={analyzeMutation.isPending}
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                padding: '8px 16px',
+                borderRadius: 8,
+                border: '1px solid rgba(255,255,255,0.1)',
+                background: analyzeMutation.isPending ? 'rgba(255,255,255,0.03)' : 'rgba(59,130,246,0.1)',
+                color: analyzeMutation.isPending ? '#475569' : '#3b82f6',
+                cursor: analyzeMutation.isPending ? 'default' : 'pointer',
+              }}
+            >
+              {analyzeMutation.isPending ? 'Analyzing…' : 'Analyze with AI'}
+            </button>
+            {analyzeMutation.isError && (
+              <div style={{ fontSize: 12, color: '#f43f5e', marginTop: 8 }}>
+                Analysis failed. Try again.
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </Card>
   )
