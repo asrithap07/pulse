@@ -4,7 +4,7 @@ const FASTAPI_URL = process.env.FASTAPI_URL;
 
 export async function POST(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
 
