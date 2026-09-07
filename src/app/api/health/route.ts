@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
+console.log("FASTAPI_URL is:", process.env.FASTAPI_URL);
   try {
-    const res = await fetch(`${process.env.FASTAPI_URL}/health`, { cache: "no-store" });
+    const res = await fetch(`${(process.env.FASTAPI_URL ?? "http://localhost:8000").replace(/\/$/, "")}/health`, { cache: "no-store" });
     if (!res.ok) {
       return NextResponse.json({ status: "down" }, { status: 503 });
     }
