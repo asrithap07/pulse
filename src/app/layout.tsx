@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Providers } from './providers'
 import { Sidebar } from '@/components/layout/Sidebar'
+import { BackendWakeGate } from '@/components/BackendWakeGate'
 import { colors } from '@/lib/tokens/colors'
 import './globals.css'
 
@@ -14,10 +15,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <Providers>
-          <div style={{ minHeight: '100vh', background: colors.bgDarkest, display: 'flex' }}>
-            <Sidebar />
-            <main style={{ flex: 1, minWidth: 0, overflowY: 'auto' }}>{children}</main>
-          </div>
+          <BackendWakeGate>
+            <div style={{ minHeight: '100vh', background: colors.bgDarkest, display: 'flex' }}>
+              <Sidebar />
+              <main style={{ flex: 1, minWidth: 0, overflowY: 'auto' }}>{children}</main>
+            </div>
+          </BackendWakeGate>
         </Providers>
       </body>
     </html>

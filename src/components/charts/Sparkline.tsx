@@ -1,13 +1,11 @@
 'use client'
 
 import { AreaChart, Area, ResponsiveContainer } from 'recharts'
-import type { Check, Status } from '@/lib/types'
-import { statusColor } from '@/lib/utils/status'
+import type { Check } from '@/lib/types'
 
-export function Sparkline({ checks, status }: { checks: Check[]; status: Status }) {
+export function Sparkline({ checks, color }: { checks: Check[]; color: string }) {
   const data = checks.slice(-16).map(c => ({ ms: c.success ? c.responseTime : 0 }))
-  const color = statusColor(status)
-  const gradientId = `sp-${status}`
+  const gradientId = `sp-${color.replace(/[^a-z0-9]/gi, '')}`
 
   return (
     <ResponsiveContainer width="100%" height={32}>

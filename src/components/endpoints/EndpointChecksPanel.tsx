@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/Card'
 import { Label } from '@/components/ui/Label'
 import { ResponseChart } from '@/components/charts/ResponseChart'
 import { fmtTime } from '@/lib/utils/format'
-import { statusColor } from '@/lib/utils/status'
+import { statusColor, statusLatencyColor } from '@/lib/utils/status'
 import { colors } from '@/lib/tokens/colors'
 
 export function EndpointChecksPanel({ api, checks }: { api: Api; checks: Check[] }) {
@@ -32,7 +32,7 @@ export function EndpointChecksPanel({ api, checks }: { api: Api; checks: Check[]
           </span>
         </div>
         <div style={{ marginTop: 6 }}>
-          <ResponseChart checks={checks} color={statusColor(api.status)} />
+          <ResponseChart checks={checks} color={statusLatencyColor(api)} />
         </div>
       </Card>
 

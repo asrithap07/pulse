@@ -4,6 +4,7 @@ import { Card } from '@/components/ui/Card'
 import { StatusPill } from '@/components/ui/StatusPill'
 import { Sparkline } from '@/components/charts/Sparkline'
 import { colors } from '@/lib/tokens/colors'
+import { statusLatencyColor } from '@/lib/utils/status'
 
 export function EndpointListItem({ api, checks, onSelect }: { api: Api; checks: Check[]; onSelect: (id: string) => void }) {
   return (
@@ -129,7 +130,7 @@ export function EndpointListItem({ api, checks, onSelect }: { api: Api; checks: 
       </div>
 
       <div style={{ marginTop: 12, height: 34 }}>
-        <Sparkline checks={checks} status={api.status} />
+        <Sparkline checks={checks} color={statusLatencyColor(api)} />
       </div>
     </Card>
   )

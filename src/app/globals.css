@@ -67,7 +67,34 @@ a {
   color: inherit;
 }
 
-::selection {
-  background: rgba(122, 231, 255, 0.2);
-  color: var(--color-text-primary);
+/* BackendWakeGate loading spinner */
+.bwg-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(122, 231, 255, 0.14);
+  border-top-color: var(--color-accent-clarity);
+  border-radius: 50%;
+  animation: bwg-spin 0.9s linear infinite;
+}
+
+@keyframes bwg-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bwg-spinner {
+    animation-duration: 3s;
+  }
+}
+
+/* BackendWakeGate text motion — a soft fallback for the moment the backend transitions */
+
+@media (prefers-reduced-motion: no-preference) {
+  .bwg-text {
+    animation: bwg-breathe 2000ms ease-in-out infinite;
+  }
+  @keyframes bwg-breathe {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
+  }
 }
