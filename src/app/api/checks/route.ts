@@ -1,4 +1,4 @@
-const FASTAPI_URL = process.env.FASTAPI_URL
+const FASTAPI_URL = (process.env.FASTAPI_URL ?? "http://localhost:8000").replace(/\/+$/, "");
 
 export async function GET(request: Request) {
   const url = new URL(request.url)

@@ -1,4 +1,4 @@
-const FASTAPI_URL = process.env.FASTAPI_URL
+const FASTAPI_URL = (process.env.FASTAPI_URL ?? "http://localhost:8000").replace(/\/+$/, "");
 
 export async function POST(_req: Request, ctx: RouteContext<'/api/apis/[id]/checks'>) {
   const { id } = await ctx.params
